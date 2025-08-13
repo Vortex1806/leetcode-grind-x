@@ -22,12 +22,11 @@ class Solution {
         while(low <= high) {
             int mid = low + (high-low)/2;
             if(requiredHrs(mid, piles) <= h) {
-                ans = mid;
                 high = mid - 1;
             } else {
                 low = mid + 1;
             }
         }
-        return ans;
+        return low;
     }
 }
