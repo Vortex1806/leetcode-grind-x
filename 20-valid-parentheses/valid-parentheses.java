@@ -5,7 +5,7 @@ class Solution {
         map.put('{', '}');
         map.put('[', ']');
 
-        Stack<Character> st = new Stack<>();
+        Deque<Character> st = new ArrayDeque<>();
 
         for(int i = 0; i < s.length(); i++) {
             if(s.charAt(i) == '(' || s.charAt(i) == '{' || s.charAt(i) == '[') {
