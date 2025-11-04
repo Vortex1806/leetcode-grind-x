@@ -21,8 +21,8 @@ class Solution {
 
     private int maxDepthNode(TreeNode node, int maxd, int curd) {
         if(node == null) return maxd;
-        int maxDleft = maxDepthNode(node.right, Math.max(maxd, curd), curd+1);
-        int maxDright = maxDepthNode(node.left, Math.max(maxd, curd), curd+1);
+        int maxDleft = maxDepthNode(node.left, Math.max(maxd, curd), curd+1);
+        int maxDright = maxDepthNode(node.right, Math.max(maxd, curd), curd+1);
         return Math.max(maxDleft, maxDright);
     }
 }
