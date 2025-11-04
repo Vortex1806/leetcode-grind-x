@@ -15,16 +15,16 @@
  */
 class Solution {
     public TreeNode invertTree(TreeNode root) {
-        invertTree2(root);
+        invertTreeHelper(root);
         return root;
     }
 
-    private void invertTree2(TreeNode node) {
+    private void invertTreeHelper(TreeNode node) {
         if(node == null)return;
         TreeNode temp = node.left;
         node.left = node.right;
         node.right = temp;
-        invertTree2(node.left);
-        invertTree2(node.right);
+        invertTree(node.left);
+        invertTree(node.right);
     }
 }
