@@ -26,7 +26,7 @@ class Solution {
     }
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-        if(root==null)return new ArrayList<>();
+        if(root==null)return ans;
         order(root, 0);
         return ans;
     }
