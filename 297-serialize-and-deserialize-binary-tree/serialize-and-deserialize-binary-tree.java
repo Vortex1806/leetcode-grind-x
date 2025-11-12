@@ -8,24 +8,24 @@
  * }
  */
 public class Codec {
-    public String recSerialize(TreeNode root, String str) {
-        if(root == null) {
-            str+="null,";
-        } else {
-            str += String.valueOf(root.val) + ",";
-            str = recSerialize(root.left, str);
-            str = recSerialize(root.right, str);
+    public void recSerialize(TreeNode root, StringBuilder sb) {
+        if (root == null) {
+            sb.append("#,");
+            return;
         }
-        return str;
+        sb.append(root.val).append(",");
+        recSerialize(root.left, sb);
+        recSerialize(root.right, sb);
     }
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        String ans = recSerialize(root, "");
-        return ans;
+        StringBuilder sb = new StringBuilder("");
+        recSerialize(root, sb);
+        return sb.toString();
     }
 
     public TreeNode recDeserialize(List<String> str) {
-        if(str.get(0).equals("null")) {
+        if(str.get(0).equals("#")) {
             str.remove(0);
             return null;
         }
