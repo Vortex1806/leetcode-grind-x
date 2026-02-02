@@ -1,10 +1,11 @@
 class Solution {
     public boolean containsDuplicate(int[] nums) {
-        HashSet<Integer> checked = new HashSet<>();
-
-        for(int num: nums) {
-            if(checked.contains(num))return true;
-            checked.add(num);
+        HashSet<Integer> hs = new HashSet<>();
+        for(int val: nums) {
+            if(hs.contains(val)) {
+                return true;
+            }
+            hs.add(val);
         }
         return false;
     }
