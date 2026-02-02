@@ -2,18 +2,17 @@ class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> ans = new ArrayList<>();
         HashMap<String, List<String>> mpp = new HashMap<>();
-        
-        for(String str : strs) {
+
+        for(String str: strs) {
             int[] arr = new int[26];
-            Arrays.fill(arr, 0);
             for(int i = 0; i < str.length(); i++) {
-                arr[str.charAt(i) - 'a']++;
+                arr[str.charAt(i)-'a']++;
             }
-            StringBuilder keyStr = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             for(int i = 0; i < 26; i++) {
-                keyStr.append(arr[i]).append('#');  
+                sb.append(arr[i]).append('#');
             }
-            String key = keyStr.toString();
+            String key = sb.toString();
             if(mpp.containsKey(key)) {
                 mpp.get(key).add(str);
             } else {
@@ -21,13 +20,10 @@ class Solution {
                 mpp.get(key).add(str);
             }
         }
-        for (String val : mpp.keySet()) {
-            List<String> list = new ArrayList<>();
-            for(String res : mpp.get(val)) {
-                list.add(res);
+        for(String value: mpp.keySet()) {
+                List<String> values = mpp.get(value);
+                ans.add(values);
             }
-            ans.add(list);
-        }
         return ans;
     }
 }
