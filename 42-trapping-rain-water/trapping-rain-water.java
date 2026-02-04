@@ -3,20 +3,27 @@ class Solution {
         int n = height.length;
         int lmax = 0;
         int rmax = 0;
-        int[] pre = new int[n];
-        int[] post = new int[n];
-        for(int i = 0; i < n; i++) {
-            pre[i] = lmax;
-            if(height[i] > lmax) lmax = height[i];
-            post[n-i-1] = rmax;
-            if(height[n-i-1] > rmax) rmax = height[n-i-1];
-        }
-        int totalWater = 0;
-        for(int i = 0; i < height.length; i++) {
-            if(Math.min(pre[i], post[i]) - height[i] > 0) {
-                totalWater += Math.min(pre[i], post[i]) - height[i];
+        int l = 0; 
+        int r = n-1;
+        int units = 0;
+        while(l < r) {
+            if(height[l] <= height[r]) {
+                if(height[l] >= lmax) {
+                    lmax = height[l];
+                } else {
+                    units += lmax - height[l];
+                }
+                l++;
+            } else {
+                if (height[r] >= rmax) {
+                    rmax = height[r];
+                } else {
+                    units += rmax - height[r];
+                }
+                r--;
             }
         }
-        return totalWater;
+        
+        return units;
     }
 }
