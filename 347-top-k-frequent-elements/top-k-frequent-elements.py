@@ -4,14 +4,16 @@ class Solution:
         for num in nums:
             hashmap[num] = 1 + hashmap.get(num,0)
 
-        heap = []
+        freq = [[] for i in range(len(nums)+1)]
         for num, count in hashmap.items():
-            heapq.heappush(heap, (count, num))
-            if len(heap) > k:
-                heapq.heappop(heap)
+            freq[count].append(num)
 
         result = []
         
-        for i in range(k):
-            result.append(heapq.heappop(heap)[1])
+        for i in range(len(freq)-1, 0, -1):
+            for num in freq[i]:
+                if len(result) < k:
+                    result.append(num)
+                else:
+                    break
         return result
