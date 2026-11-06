@@ -1,36 +1,38 @@
 class Solution {
-    int lowerBound(int[] nums, int target) {
-        int l = 0;
-        int r = nums.length-1;
-        int res = nums.length;
-        while(l <= r) {
-            int mid = l + (r-l)/2;
-            if(nums[mid] >= target) {
-                res = mid;
-                r = mid - 1;
-            } else l = mid + 1;
+    public int findFirst(int[] nums, int target) {
+        int n = nums.length;
+        int low = 0;
+        int high = n-1;
+        while(low <= high) {
+            int mid = low + (high-low)/2;
+            if(nums[mid] >= target) high = mid - 1;
+            else low = mid +1;
         }
-        return res;
-    }
-
-    int upperBound(int[] nums, int target) {
-        int l = 0;
-        int r = nums.length-1;
-        int res = nums.length;
-        while(l <= r) {
-            int mid = l + (r-l)/2;
-            if(nums[mid] > target) {
-                res = mid;
-                r = mid - 1;
-            } else l = mid + 1;
+        if(low < n && nums[low] == target) {
+            return low;
         }
-        return res;
-    }
+        return -1;
+    }   
 
+    public int findLast(int[] nums, int target) {
+        int n = nums.length;
+        int low = 0;
+        int high = n-1;
+        while(low <= high) {
+            int mid = low + (high-low)/2;
+            if(nums[mid] > target) high = mid - 1;
+            else low = mid +1;
+        }
+        if(high < n && nums[high] == target) {
+            return high;
+        }
+        return -1;
+    }   
     public int[] searchRange(int[] nums, int target) {
-        if(nums.length == 0) return new int[] {-1, -1};
-        int x = lowerBound(nums, target);
-        if(x == nums.length || nums[x] != target) return new int[] {-1, -1};
-        return new int[] {x, upperBound(nums, target) -1};
+        if(nums.length == 0)return new int[] {-1,-1};
+        int first = findFirst(nums, target);
+        if(first == -1)return new int[] {-1,-1};
+        int last = findLast(nums,target);
+        return new int[] {first, last};
     }
 }
