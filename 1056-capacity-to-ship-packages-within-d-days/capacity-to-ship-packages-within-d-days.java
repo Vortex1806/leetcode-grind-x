@@ -5,6 +5,9 @@ class Solution {
         for(int w : weights) {
             if(load + w > capacity) {
                 daysRequired++;
+                if(daysRequired > days) {
+                    return false;
+                }
                 load = 0;
             }
             load += w;
