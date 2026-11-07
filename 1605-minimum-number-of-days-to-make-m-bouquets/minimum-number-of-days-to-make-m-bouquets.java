@@ -1,44 +1,38 @@
 class Solution {
-    int getMax(int[] arr) {
-        int maxi = arr[0];
-        for(int i = 0; i < arr.length; i++) {
-            if(arr[i] > maxi) maxi = arr[i];
-        }
-        return maxi;
-    }
+    public boolean canBuild(int[] bloomDay, int m, int k, int date) {
+        int boquet = 0;
+        int totalBoquet = 0;
 
-
-    int check(int[] bloomDay, int m, int k, int day) {
-        int x = k;
-        for(int i = 0; i < bloomDay.length; i++) {
-            if(bloomDay[i] <= day) {
-                x--;
-                if(x == 0) {
-                    m--;
-                    x = k;
-                    if(m == 0)return m;
-                } 
+        for(int day: bloomDay) {
+            if(day <= date) {
+                boquet++;
+                if(boquet == k) {
+                    totalBoquet++;
+                    boquet = 0;
+                }
             } else {
-                x = k;
+                boquet = 0;
             }
         }
-        return m;
+        return totalBoquet >= m;
     }
 
     public int minDays(int[] bloomDay, int m, int k) {
-        if(m*k > bloomDay.length) return -1;
-        int l = 1;
-        int r = getMax(bloomDay);
-
-        while(l <= r) {
-            int mid = l + (r - l) /2;
-            if(check(bloomDay, m, k, mid) > 0) {
-                l = mid + 1;
-            } else {
-                r = mid - 1;
-            }
+        if(k > bloomDay.length/m) return -1;
+        int least = Integer.MAX_VALUE;
+        int maxi = Integer.MIN_VALUE;
+        for(int day: bloomDay) {
+            if(day < least) least = day;
+            if(day > maxi) maxi = day;
         }
-        if(l > getMax(bloomDay))return -1;
-        return l;
+
+        int low = least;
+        int high = maxi;
+        while(low < high) {
+            int mid = low + (high-low) /2;
+            if(canBuild(bloomDay, m, k, mid))high = mid;
+            else low = mid + 1;
+        }
+        return low > maxi ? -1 : low;
     }
 }
