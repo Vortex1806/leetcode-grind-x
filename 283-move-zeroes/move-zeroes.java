@@ -6,11 +6,11 @@ class Solution {
     }
 
     public void moveZeroes(int[] nums) {
-        int write = 0;
-        for(int read = 0; read< nums.length; read++) {
-            if(nums[read]!= 0) {
-                swap(nums, write, read);
-                write++;
+        int i = 0;
+        for(int j = 0; j < nums.length; j++) {
+            if(nums[j] != 0) {
+                swap(nums, i, j);
+                i++;
             }
         }
     }
