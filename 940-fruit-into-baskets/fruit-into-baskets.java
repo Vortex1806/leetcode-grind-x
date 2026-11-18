@@ -1,16 +1,27 @@
 class Solution {
     public int totalFruit(int[] fruits) {
-        HashMap<Integer, Integer> mpp = new HashMap<>();
+        int a = -1;
+        int b = -1;
+        int aind = -1;
+        int bind = -1;
         int left = 0;
         int best = 0;
         for(int right = 0; right < fruits.length; right++) {
-            mpp.put(fruits[right], mpp.getOrDefault(fruits[right], 0) + 1);
-            while(mpp.size() > 2) {
-                mpp.put(fruits[left], mpp.get(fruits[left]) - 1);
-                if(mpp.get(fruits[left]) == 0) {
-                    mpp.remove(fruits[left]);
+            int fruit = fruits[right];
+            if(fruit == a) {
+                aind = right;
+            } else if(fruit == b) {
+                bind = right;
+            } else {
+                if(aind < bind) {
+                    left = aind + 1;
+                    aind = right;
+                    a = fruit;
+                } else {
+                    left = bind  + 1;
+                    bind = right;
+                    b = fruit;
                 }
-                left++;
             }
             best = Math.max(best, right-left+1);
         }
