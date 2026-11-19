@@ -1,34 +1,35 @@
 class Solution {
+
+
     public String minWindow(String s, String t) {
-        HashMap<Character, Integer> mpp = new HashMap<>();
-        int cnt = t.length();
-        for(char ch : t.toCharArray()) {
-            mpp.put(ch, mpp.getOrDefault(ch, 0) + 1);
-        }
-        int l = 0;
-        int sInd = 0;
-        int minSize = Integer.MAX_VALUE;
-        int r = 0;
-        while(r < s.length()) {
-            char ch = s.charAt(r);
-            if(mpp.containsKey(ch)) {
-                if(mpp.get(ch) > 0) cnt--;
-                mpp.put(ch, mpp.get(ch) - 1);
-            }            
-            while(cnt == 0) {
-                if(r-l+1 < minSize) {
-                    minSize = r-l+1;
-                    sInd = l;
+        int n = s.length();
+        int m = t.length();
+        if(m > n) return "";
+        int count[] = new int[128];
+        for(int k = 0; k < t.length(); k++) count[t.charAt(k)]++;
+        int startInd = 0;
+        int best = Integer.MAX_VALUE;
+        int left = 0;
+        int missing = m;
+        for(int right = 0; right < n; right++) {
+            char c = s.charAt(right);
+            if(count[c] > 0) missing--;
+            count[c]--;
+            if(missing == 0) {
+                while(count[s.charAt(left)] < 0) {
+                    count[s.charAt(left)]++;
+                    left++;
                 }
-                char lchar = s.charAt(l);
-                if(mpp.containsKey(lchar)) {
-                    mpp.put(lchar, mpp.get(lchar) + 1);
-                    if(mpp.get(lchar) > 0) cnt++;
+                if(right-left+1< best) {
+                    best = right-left+1;
+                    startInd = left;
                 }
-                l++;
-            }   
-            r++;
+                count[s.charAt(left)]++;
+                missing++;
+                left++;
+            }
         }
-        return minSize == Integer.MAX_VALUE ? "" : s.substring(sInd, sInd + minSize);
+        if(best == Integer.MAX_VALUE)return "";
+        return s.substring(startInd, startInd + best);
     }
 }
