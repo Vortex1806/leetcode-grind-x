@@ -11,17 +11,22 @@ class ProductOfNumbers {
     
     public void add(int num) {
         valueList.add(num);
-        lastProduct = lastProduct * num;
-        productList.add(lastProduct);
+        if (num == 0) {
+            productList.clear();
+            lastProduct = 1;
+        } else {
+            lastProduct = lastProduct * num;
+            productList.add(lastProduct);
+        }
     }
     
     public int getProduct(int k) {
-        int n = valueList.size();
-        int prod = 1;
-        for(int i = n-1; i >= n-k; i--) {
-            prod = prod * valueList.get(i);
+        if (k > productList.size()) {
+            return 0;
         }
-        return prod;
+        int currentValue = productList.get(productList.size() - 1);
+        if(k == productList.size()) return currentValue;
+        return currentValue / productList.get(productList.size()-k-1);
     }
 }
 
