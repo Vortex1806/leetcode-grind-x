@@ -1,16 +1,13 @@
 class ProductOfNumbers {
-    List<Integer> valueList;
     List<Integer> productList;
     int lastProduct;
 
     public ProductOfNumbers() {
-        valueList = new ArrayList<>();
         productList = new ArrayList<>();
         lastProduct=1;
     }
     
     public void add(int num) {
-        valueList.add(num);
         if (num == 0) {
             productList.clear();
             lastProduct = 1;
